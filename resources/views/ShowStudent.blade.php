@@ -2,7 +2,7 @@
 
 
 @section("content")
-
+<a href="{{ route("website.all-post") }}"><button>Show All Post</button></a>
 <table border="1">
     <thead>
         <tr>

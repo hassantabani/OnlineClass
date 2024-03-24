@@ -15,7 +15,8 @@
       <option value="Active">Active</option>
       <option value="InActive">InActive</option>
   </select>
-
+  <label for="lname">Multiple Image:</label><br>
+  <input type="file" id="lname" name="multiple_image[]" multiple><br><br>
 
     <button type="submit" >Submit</button>
 </form>

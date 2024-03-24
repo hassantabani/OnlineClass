@@ -44,6 +44,8 @@ Route::name("website.")->prefix("website")->group(function(){
 
     Route::get("/post/{id}",[WebsiteController::class,"post"])->name('post');
     Route::post("/store-post/{id}",[WebsiteController::class,"store_post"])->name("createPost");
+
+    Route::get('all-post',[WebsiteController::class, "all_post"])->name("all-post");
 });
 
 

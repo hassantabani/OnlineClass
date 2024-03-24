@@ -19,6 +19,7 @@ class WebsiteController extends Controller
 
 
     public function store_student(Request $request){
+        
     $request->validate([
 "student_name"=>"required",
 "student_email"=>"required",
@@ -30,7 +31,7 @@ class WebsiteController extends Controller
 $input=$request->all();
 Student::create($input);
 
-return redirect()->back()->with("message","Successfully Student Create");
+return response()->json(['success'=>"Store Successfully"],200);
 
     }
 
@@ -78,14 +79,34 @@ return redirect()->route('website.showStudent')->with("message","Successfully St
             "title"=>"required",
             "description"=>"required",
             "single_image"=>"required|image",
+"multiple_image.*"=>"required"
+
         ]);
 
         $input=$request->all();
         $filename = rand(00000,99999).".".$input['single_image']->extension();
         $path=$input['single_image']->storeAs('post',$filename,'public');
         $input['single_image']=$path;
+
+        if($request->multiple_image){
+
+            $images=[];
+            foreach($request->multiple_image as $m){
+
+                $filename = rand(00000,99999).".".$m->extension();
+                $path=$m->storeAs('post',$filename,'public');
+                $images[]=$path;
+            }
+$input['multiple_image']=json_encode($images);
+        }
+
 $input['user_id']=$id;
         $post=Post::create($input);
         return redirect()->back();
+    }
+
+    public function all_post(){
+        $post=Post::all();
+        return view('ShowPost',compact("post"));
     }
 }
